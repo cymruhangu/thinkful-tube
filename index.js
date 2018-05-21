@@ -6,7 +6,7 @@ function getDataFromApi(searchTerm, callback) {
     url: YOUTUBE_SEARCH_URL,
     dataType: 'json',
     data: {
-      maxResults: '25',
+      maxResults: '28',
       part: 'snippet',
       q: `${searchTerm}`,
       key: 'AIzaSyCqJXBeMiVGZJzIUVoZYxYcMbyfOEc19AY'
