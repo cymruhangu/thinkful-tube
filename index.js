@@ -16,35 +16,21 @@ function getDataFromApi(searchTerm, callback) {
   $.ajax(settings);
 }
 
-//     .done(function(data){
-//     console.log(`data.kind - ${data.kind}`);
-//     console.log(`data.items[0].snippet.thumbnails.high.url - ${data.items[0].snippet.thumbnails.medium.url}`);
-//     console.log(`data.items[0].title - ${data.items[0].snippet.title}`);
-//     console.log(`data.items[0].description - ${data.items[0].snippet.description}`);
-//     console.log(data);
-
-
-//   }).fail(function(){
-//       console.log("FAILED TO GET JSON!!");
-//   });
-// }
-
-
-function renderResult(thumb_url, real_url) {
-  console.log(`renderResult ran and was passed ${thumb_url}`);
+function renderResult(thumb_url, videoId) {
+  // console.log(`renderResult ran and was passed ${thumb_url}`);
   return `
     <div class="thumbnail">
-      <a target="_blank" data-src="${thumb_url}"  class="thumbnail" href="https://www.youtube.com/watch?v=${real_url}"><img src="${thumb_url}" alt="An"/></a>
+      <a target="iframe_a" data-src="${thumb_url}" \
+      href="https://www.youtube.com/embed/${videoId}?controls=1"><img src="${thumb_url}" alt="An"/></a>
     </div>
   `;
 }
 
 function displayYouTubeSearchData(data) {
-  console.log(data);
-  
+  // console.log(data);
 
   const results = data.items.map((item, index) => renderResult(item.snippet.thumbnails.medium.url, item.id.videoId));
-  console.log(`results are: ${results}`);
+  // console.log(`results are: ${results}`);
   $('.gallery').html(results);
 }
 
@@ -60,3 +46,40 @@ function watchSubmit() {
 }
 
 $(watchSubmit);
+
+//============================================================
+//Vanilla JS for modal window close
+let modal = document.getElementById('modal-container');
+let closeBtn = document.getElementById('closeBtn');
+// Listen for close click
+closeBtn.addEventListener('click', closeModal);
+
+// Function to close modal
+function closeModal(){
+  modal.style.display = 'none';
+}
+//=============================================================
+
+// let thumbnail = document.getElementsByClass('thumbnail');
+
+
+
+
+
+//Copied from Cat carousel
+function handleThumbNailClicks(){
+  console.log("handleThumbNailClicks ran");
+  $('a').on('click', function(event){
+    event.preventDefault();
+    // let newVideo = $(this).find('href');
+    // const videoSrc = foundImg.attr('src');
+    // const imgAlt = foundImg.attr('alt');
+    console.log("Registered click");
+    
+    // $('.hero img').attr({src: imgSrc, alt: imgAlt});
+  });
+}
+
+$(handleThumbNailClicks);
+
+
