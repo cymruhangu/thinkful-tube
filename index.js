@@ -19,7 +19,7 @@ function getDataFromApi(searchTerm, callback) {
 function renderResult(thumb_url, videoId) {
   // console.log(`renderResult ran and was passed ${thumb_url}`);
   return `
-    <div class="thumbnail">
+    <div id="thumbnail">
       <a target="iframe_a" data-src="${thumb_url}" \
       href="https://www.youtube.com/embed/${videoId}?controls=1"><img src="${thumb_url}" alt="An"/></a>
     </div>
@@ -32,6 +32,7 @@ function displayYouTubeSearchData(data) {
   const results = data.items.map((item, index) => renderResult(item.snippet.thumbnails.medium.url, item.id.videoId));
   // console.log(`results are: ${results}`);
   $('.gallery').html(results);
+  $(handleThumbNailClicks);
 }
 
 function watchSubmit() {
@@ -60,23 +61,13 @@ function closeModal(){
 }
 //=============================================================
 
-// let thumbnail = document.getElementsByClass('thumbnail');
 
-
-
-
-
-//Copied from Cat carousel
 function handleThumbNailClicks(){
-  console.log("handleThumbNailClicks ran");
-  $('a').on('click', function(event){
-    event.preventDefault();
-    // let newVideo = $(this).find('href');
-    // const videoSrc = foundImg.attr('src');
-    // const imgAlt = foundImg.attr('alt');
+  $('a').click(function(event){
+    // event.preventDefault();
     console.log("Registered click");
     
-    // $('.hero img').attr({src: imgSrc, alt: imgAlt});
+    $('.modal').fadeIn(600);
   });
 }
 

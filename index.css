@@ -9,13 +9,13 @@ body {
 
 
 .modal{
-  /*display:none;*/
+  display:none;
   position: fixed;
   z-index:1;
   right: 0;
-  top:200px;
-  height: 600px;
-  width: 400px;
+  top:0;
+  height: 800px;
+  width: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.5);
 }
@@ -34,15 +34,15 @@ body {
 }
 
 modal-content {
-
+  margin: 0 auto;
 }
 
-
 iframe {
-	width: 400px;
-	height: 300px;
+	width: 80%;
+	height: 800px;
 	margin: 0 auto;
 	padding-left: 0;
+  text-align: center;
 }
 
 form {
