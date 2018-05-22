@@ -7,8 +7,7 @@ body {
   padding-left: 30px;
 }
 
-
-.modal{
+#modal-container{
   display:none;
   position: fixed;
   z-index:1;
@@ -20,10 +19,11 @@ body {
   background-color: rgba(0,0,0,0.5);
 }
 
+
 #closeBtn{
   color:#ccc;
   float: right;
-  font-size:30px;
+  font-size:50px;
   color:#fff;
 }
 
@@ -33,16 +33,22 @@ body {
   cursor:pointer;
 }
 
-modal-content {
+#modal-content {
   margin: 0 auto;
 }
+#modal-header{
+  margin: 30px 30px;
+  padding-right: 50px;
+} 
 
 iframe {
+  position: relative;
+  top: 50px;
+  left: 150px;
 	width: 80%;
 	height: 800px;
 	margin: 0 auto;
 	padding-left: 0;
-  text-align: center;
 }
 
 form {

@@ -27,8 +27,7 @@ function renderResult(thumb_url, videoId) {
 }
 
 function displayYouTubeSearchData(data) {
-  // console.log(data);
-
+  console.log(data);
   const results = data.items.map((item, index) => renderResult(item.snippet.thumbnails.medium.url, item.id.videoId));
   // console.log(`results are: ${results}`);
   $('.gallery').html(results);
@@ -57,7 +56,9 @@ closeBtn.addEventListener('click', closeModal);
 
 // Function to close modal
 function closeModal(){
-  modal.style.display = 'none';
+  //Need to stop video too.
+  $('#current_frame')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');    
+   modal.style.display = 'none';
 }
 //=============================================================
 
