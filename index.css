@@ -7,6 +7,44 @@ body {
   padding-left: 30px;
 }
 
+
+.modal{
+  /*display:none;*/
+  position: fixed;
+  z-index:1;
+  right: 0;
+  top:200px;
+  height: 600px;
+  width: 400px;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+#closeBtn{
+  color:#ccc;
+  float: right;
+  font-size:30px;
+  color:#fff;
+}
+
+#closeBtn:hover,#closeBtn:focus{
+  color:#000;
+  text-decoration: none;
+  cursor:pointer;
+}
+
+modal-content {
+
+}
+
+
+iframe {
+	width: 400px;
+	height: 300px;
+	margin: 0 auto;
+	padding-left: 0;
+}
+
 form {
 	padding-bottom: 30px;
 }

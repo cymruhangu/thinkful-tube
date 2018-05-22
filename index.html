@@ -8,16 +8,31 @@
 	<link rel="stylesheet" type="text/css" href="./index.css">
 </head>
 <body>
-	 <main>
-        <h1>Search YouTube by name</h1>
-          <form action="#" class="js-search-form">
-            <label for="query"></label>
-            <input type="text" class="js-query">
-            <button id="btn" type="submit">Search</button>
-          </form>
-        <section class="gallery">
-        	
-        </section>
+  <header role="banner">
+    <h1>Search YouTube by name</h1>
+  </header>
+	 <main role="main">
+    <h2>Enter Search Term</h2>   
+    <form action="#" class="js-search-form">
+      <label for="query"></label>
+      <input type="text" class="js-query">
+      <button id="btn" type="submit">Search</button>
+    </form>
+    <section id="modal-container" class="modal"> 
+      <!-- Modal window that will contain iFrame with video imbedded -->
+      <div id="modal-content" class="modal">
+        <div class="modal-header">
+          <span id="closeBtn">&times;</span>
+        </div>
+        <iframe name="iframe_a" 
+          <p>Your browser does not support iFrames</p>
+        </iframe>
+      </div>
+    </section>
+
+    <section class="gallery">
+        	<!-- The Gallery of Thumbnails is inserted here. -->
+    </section>
       </main>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
