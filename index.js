@@ -16,22 +16,26 @@ function getDataFromApi(searchTerm, callback) {
   $.ajax(settings);
 }
 
-function renderResult(thumb_url, videoId) {
-  // console.log(`renderResult ran and was passed ${thumb_url}`);
+function renderResult(thumb_url, videoId, title) {
+  // console.log(`title is:  ${title}`);
   return `
-    <div id="thumbnail">
+    <div class="thumbnail">
       <a target="iframe_a" data-src="${thumb_url}" \
-      href="https://www.youtube.com/embed/${videoId}?controls=1"><img src="${thumb_url}" alt="An"/></a>
+      href="https://www.youtube.com/embed/${videoId}?controls=1"><img src="${thumb_url}" alt="An"/><span class="playBtn"><img src="http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt=""></span></a>
+        <span class="playBtn"><img src="http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt=""></span>
+      <figcaption>${title}</figcaption>
     </div>
   `;
 }
 
 function displayYouTubeSearchData(data) {
   console.log(data);
-  const results = data.items.map((item, index) => renderResult(item.snippet.thumbnails.medium.url, item.id.videoId));
+  const results = data.items.map((item, index) => renderResult(item.snippet.thumbnails.medium.url, item.id.videoId, item.snippet.title));
   // console.log(`results are: ${results}`);
   $('.gallery').html(results);
   $(handleThumbNailClicks);
+  // $(handleThumbNailHover);
+  // $(handlePlayBtn);
 }
 
 function watchSubmit() {
@@ -64,14 +68,19 @@ function closeModal(){
 
 
 function handleThumbNailClicks(){
-  $('a').click(function(event){
+  $('.thumbnail').click(function(event){
     // event.preventDefault();
     console.log("Registered click");
-    
     $('.modal').fadeIn(600);
   });
 }
 
-$(handleThumbNailClicks);
+
+// function handlePlayBtn(){
+//   $('.playBtn').click(function(){
+//     console.log("playBtn clicked");
+//     $('.playBtn').css('display', 'none');
+//   })
+// }
 
 
