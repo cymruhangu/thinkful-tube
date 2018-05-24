@@ -6,7 +6,19 @@ body {
   padding-top: 50px;
   padding-left: 30px;
 }
-
+#galler-nav {
+  text-align: center;
+  margin: 0 auto;
+}
+#previous, #next {
+  background-color: #a9c8f9;
+  width: 120px;
+  height: 40px;
+  border-radius: 15px;
+  position: relative;
+  display: inline-block;
+  margin: 20px;
+}
 #modal-container{
   display:none;
   position: fixed;
