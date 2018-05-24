@@ -11,8 +11,9 @@
 - Mouseover shows Title/info about video. X
 - Get 100 videos from API and load only first X.  Have next and back buttons to load others. 
 - Implement next and previous page token feature?
-	*Grab nextPageToken
-	*
+	* Grab nextPageToken
+	* Add hidden next and previous.
+	* figure out how to query with the next and previous tokens
 
 
 Issues/Questions:
