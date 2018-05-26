@@ -25,7 +25,7 @@ body {
   z-index:1;
   right: 0;
   top:0;
-  height: 700px;
+  height: 850px;
   width: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.6);
@@ -33,6 +33,10 @@ body {
   margin-top: 0;
 }
 
+.controls {
+  float: right;
+  padding: 15px;
+}
 
 #closeBtn{
   color:#ccc;

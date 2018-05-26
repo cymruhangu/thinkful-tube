@@ -8,6 +8,25 @@
   let prevPageToken = '';
   let lastPage = false;
   
+  
+  function controlsListen(){
+  $('a.play-video').click(function(){
+  $('.youtube-video')[0].contentDocument.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
+  } );
+
+  $('a.stop-video').click(function(){
+    let vid = $('youtube-video')[0];
+    console.log(`vid is:  ${vid}`);
+  // $('.youtube-video')[0].contentDocument.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');
+  });
+
+  $('a.pause-video').click(function(){
+    $('.youtube-video')[0].contentDocument.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
+  });
+}
+
+
+
 getSearchTerm();
 
 function getSearchTerm() {
@@ -23,7 +42,7 @@ function getSearchTerm() {
     });
   }
 
-  function getDataFromApi(query, token, callback) { 
+  function getDataFromApi(query, callback) { 
     //if initial search -- if token is blank or null -- called by submit
     //else it was called by next or previous
   
@@ -60,9 +79,9 @@ function getSearchTerm() {
     // console.log(`title is:  ${title}`);
     return `
       <div class="thumbnail">
-        <a target="iframe_a" data-src="${thumb_url}" \
-        href="https://www.youtube.com/embed/${videoId}?controls=1"><img src="${thumb_url}" alt="An"/><span class="playBtn"><img src="http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt=""></span></a>
-          <span class="playBtn"><img src="http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt=""></span>
+        <a target="iframe_a" src="${thumb_url}" \
+        href="https://www.youtube.com/embed/${videoId}?enablejsapi=1&version=3&playerapiid=ytplayer" frameborder="0" allowfullscreen"><img src="${thumb_url}" alt="An"/><span class="playBtn"><img src=
+        "http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt=""></span></a>
         <figcaption>${title}</figcaption>
       </div>
     `;
@@ -89,7 +108,7 @@ function getSearchTerm() {
   function nextButton(token) {
     $('#next').on('click', function(event) {
       event.preventDefault();
-      getDataFromApi(searchTerm, token, renderResult);
+      getNextPage(token);
     });
   };
 
@@ -109,9 +128,10 @@ function getSearchTerm() {
 
   // Function to close modal
   function closeModal(){
+    modal.style.display = 'none';
     //Need to stop video too.
-    $('#current_frame')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');    
-     modal.style.display = 'none';
+    $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');    
+     
   }
   //=============================================================
 
@@ -121,14 +141,16 @@ function getSearchTerm() {
       // event.preventDefault();
       console.log("Registered click");
       $('.modal').fadeIn(600);
+        // controlsListen();
+
+      $('.playBtn').fadeOut(100);
     });
   }
 
 
-// function handlePlayBtn(){
-//   $('.playBtn').click(function(){
-//     console.log("playBtn clicked");
-//     $('.playBtn').css('display', 'none');
-//   })
-// }
+ $(".stop-video").click(function() {
+        $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');    
+});
+
+
 })();
