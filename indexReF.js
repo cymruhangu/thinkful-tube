@@ -3,41 +3,25 @@
 'use strict';
   const YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search';
   const APIkey = 'AIzaSyCqJXBeMiVGZJzIUVoZYxYcMbyfOEc19AY';
-  let searchTerm = '';
+  let searchTerm ='';
   let nextPageToken = '';
   let prevPageToken = '';
   let lastPage = false;
   
-  
-  function controlsListen(){
-  $('a.play-video').click(function(){
-  $('.youtube-video')[0].contentDocument.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
-  } );
-
-  $('a.stop-video').click(function(){
-    let vid = $('youtube-video')[0];
-    console.log(`vid is:  ${vid}`);
-  // $('.youtube-video')[0].contentDocument.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');
-  });
-
-  $('a.pause-video').click(function(){
-    $('.youtube-video')[0].contentDocument.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
-  });
-}
-
-
 
 getSearchTerm();
 
 function getSearchTerm() {
     $('.js-search-form').submit(event => {
-      console.log("getSearchTerm ran");
       event.preventDefault();
       const queryTarget = $(event.currentTarget).find('.js-query');
       const query = queryTarget.val();
       // clear out the input
       queryTarget.val("");
       searchTerm = query;
+      sessionStorage.setItem('searchTerm', query);
+      let sssT = sessionStorage.getItem("searchTerm");
+      console.log(`sssT is: ${sssT}`);
       getDataFromApi(query, displayYouTubeSearchData);
     });
   }
@@ -45,8 +29,6 @@ function getSearchTerm() {
   function getDataFromApi(query, callback) { 
     //if initial search -- if token is blank or null -- called by submit
     //else it was called by next or previous
-  
-    console.log(`getDataFromApi ran.  searchTerm is ${searchTerm}`);
     const settings = {
       type: 'GET',
       url: YOUTUBE_SEARCH_URL,
@@ -54,7 +36,8 @@ function getSearchTerm() {
       data: {
         maxResults: '28',
         part: 'snippet',
-        q: `${query}`,
+        // q: `${sTerm}`,
+        q: sessionStorage.getItem('searchTerm'),
         key: `${APIkey}`,
         pageToken: `${nextPageToken}`
       },
@@ -64,8 +47,9 @@ function getSearchTerm() {
   }
 
   function displayYouTubeSearchData(data) {  //this should do it for all requests
-    let nextPageToken = data.nextPageToken;
-    console.log(`nextPageToken is ${nextPageToken}`);
+    console.log(data);
+    sessionStorage.setItem('nextPageToken', data.nextPageToken);
+    sessionStorage.setItem('prevPageToken', data.previousPageToken);
     const results = data.items.map((item, index) => renderResult(item.snippet.thumbnails.medium.url, item.id.videoId, item.snippet.title));
     // console.log(`results are: ${results}`);
     $('.gallery').html(results);
@@ -119,7 +103,6 @@ function getSearchTerm() {
     });
   }
 
-  //============================================================
   //Vanilla JS for modal window close
   let modal = document.getElementById('modal-container');
   let closeBtn = document.getElementById('closeBtn');
@@ -133,7 +116,6 @@ function getSearchTerm() {
     $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');    
      
   }
-  //=============================================================
 
 
   function handleThumbNailClicks(){
@@ -146,11 +128,6 @@ function getSearchTerm() {
       $('.playBtn').fadeOut(100);
     });
   }
-
-
- $(".stop-video").click(function() {
-        $('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');    
-});
 
 
 })();
