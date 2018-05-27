@@ -40,20 +40,45 @@ function getSearchTerm() {
       },
       success: callback,
       error: function(request, status, error){
-        console.log(request.responseText);
+        console.log(error);
+        if(error.code === 400){
+          console.log("Back at first page");
+          firstPage = true;
+        }
       }
     };
     $.ajax(settings);
   }
 
   function displayYouTubeSearchData(data) {  //this should do it for all requests
-    console.log(data);
-    sessionStorage.setItem('nextPageToken', data.nextPageToken);
-    sessionStorage.setItem('prevPageToken', data.prevPageToken);
+    // console.log(data);
+    let nextPg = data.nextPageToken;
+    let prevPg = data.prevPageToken;
+    sessionStorage.setItem('nextPageToken', nextPg);
+    sessionStorage.setItem('prevPageToken', prevPg);
     const results = data.items.map((item, index) => renderResult(item.snippet.thumbnails.medium.url, item.id.videoId, item.snippet.title));
     // console.log(`previousPageToken is: ${}`);
     $('.gallery').html(results);
     $(handleThumbNailClicks);
+    setState(prevPg, nextPg);
+  }
+
+  function setState(previous, next){
+    if(previous === undefined){ 
+      $('#previous').css('opacity', '0');
+      $('#next').css('opacity', '1');
+      firstPage = false;
+    }else if(next === undefined){ //last page
+      //show only prev button
+      console.log('last page!');
+      $('#next').css('opacity', '0');
+      lastPage = true;
+    }else {
+      $('#previous').css('opacity', '1');
+      $('#next').css('opacity', '1');
+    }
+    //Remove previously called event handlers
+    $('button').off();
     nextButton();
     previousButton();
   }
@@ -69,25 +94,6 @@ function getSearchTerm() {
     `;
   }
 
-  function getNextPage(token){
-    const settings = {
-      type: 'GET',
-      url: YOUTUBE_SEARCH_URL,
-      dataType: 'json',
-      data: {
-        maxResults: '5',
-        part: 'snippet',
-        q: sessionStorage.getItem('searchTerm'),
-        pageToken: 'token',
-        key: `${APIkey}`
-      }
-      // success: callback
-    };
-    let nextData = $.ajax(settings);
-    // const results = nextData.map((item, index) => renderResult(item.snippet.thumbnails.medium.url, item.id.videoId, item.snippet.title));
-    console.log(nextData);
-  }
-
   function nextButton() {
     $('#next').on('click', function(event) {
       event.preventDefault();
@@ -98,7 +104,6 @@ function getSearchTerm() {
   function previousButton(token){
     $('#previous').on('click', function(event){
       event.preventDefault();
-      console.log("previous clicked!");
       getDataFromApi(sessionStorage.getItem('prevPageToken'),displayYouTubeSearchData);
     });
   }
@@ -119,7 +124,6 @@ function getSearchTerm() {
   function handleThumbNailClicks(){
     $('.thumbnail').click(function(event){
       // event.preventDefault();
-      console.log("Registered click");
       $('.modal').fadeIn(600);
       $('.playBtn').fadeOut(100);
     });

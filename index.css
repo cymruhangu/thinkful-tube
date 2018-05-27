@@ -6,11 +6,22 @@ body {
   padding-top: 50px;
   padding-left: 30px;
 }
-#galler-nav {
+
+h1, h2 {
+  text-align: center;
+}
+
+.js-search-form, #gallery-nav {
   text-align: center;
   margin: 0 auto;
 }
+
+#btn {
+  background-color: gray;
+  color: white;
+}
 #previous, #next {
+  opacity: 0;
   background-color: #a9c8f9;
   width: 120px;
   height: 40px;
@@ -18,7 +29,14 @@ body {
   position: relative;
   display: inline-block;
   margin: 20px;
+  border-color: white;
 }
+
+#previous:hover, #next:hover {
+  background-color: #6f7e96;
+  color: white;
+}
+
 #modal-container{
   display:none;
   position: fixed;
@@ -43,6 +61,7 @@ body {
   float: right;
   font-size:50px;
   color:#fff;
+  margin-right: 100px;
 }
 
 #closeBtn:hover,#closeBtn:focus{
