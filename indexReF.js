@@ -4,7 +4,6 @@
   const YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search';
   const APIkey = 'AIzaSyCqJXBeMiVGZJzIUVoZYxYcMbyfOEc19AY';
   let firstPage = true;
-  // sessionStorage.clear();
   let lastPage = false;
   let token = '';
 
@@ -24,8 +23,6 @@ function getSearchTerm() {
   }
 
   function getDataFromApi(token, callback){ 
-    //if initial search -- if token is blank or null -- called by submit
-    //else it was called by next or previous
     const settings = {
       type: 'GET',
       url: YOUTUBE_SEARCH_URL,
@@ -33,7 +30,7 @@ function getSearchTerm() {
       data: {
         maxResults: '28',
         part: 'snippet',
-        // q: `${sTerm}`,
+
         q: sessionStorage.getItem('searchTerm'),
         key: `${APIkey}`,
         pageToken: token
@@ -57,8 +54,8 @@ function getSearchTerm() {
     sessionStorage.setItem('nextPageToken', nextPg);
     sessionStorage.setItem('prevPageToken', prevPg);
     const results = data.items.map((item, index) => renderResult(item.snippet.thumbnails.medium.url, item.id.videoId, item.snippet.title));
-    // console.log(`previousPageToken is: ${}`);
     $('.gallery').html(results);
+    // $('.gallery').fadeIn(600);
     $(handleThumbNailClicks);
     setState(prevPg, nextPg);
   }
@@ -123,7 +120,6 @@ function getSearchTerm() {
 
   function handleThumbNailClicks(){
     $('.thumbnail').click(function(event){
-      // event.preventDefault();
       $('.modal').fadeIn(600);
       $('.playBtn').fadeOut(100);
     });

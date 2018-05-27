@@ -4,7 +4,7 @@
 
 body {
   padding-top: 50px;
-  padding-left: 30px;
+  padding-left: 25px;
 }
 
 h1, h2 {
@@ -43,7 +43,7 @@ h1, h2 {
   z-index:1;
   right: 0;
   top:0;
-  height: 850px;
+  height: 1000px;
   width: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.6);
@@ -58,10 +58,11 @@ h1, h2 {
 
 #closeBtn{
   color:#ccc;
-  float: right;
+  position: absolute;
+  top: 20px;
+  right: 120px;
   font-size:50px;
   color:#fff;
-  margin-right: 100px;
 }
 
 #closeBtn:hover,#closeBtn:focus{
@@ -116,7 +117,6 @@ figcaption {
   background: rgba(0,0,0,0.4); 
   color: white; 
   padding: 10px 20px; 
-
   opacity: 0;
   bottom: 0; 
   left: -30%;
@@ -126,7 +126,6 @@ figcaption {
 }
 
 .thumbnail .playBtn {
-  /*opacity: 0;*/
   display: none;
   position: absolute; z-index: 2;
   width: 50px; height: 50px;
@@ -139,7 +138,25 @@ figcaption {
 }
 
 .thumbnail:hover .playBtn {
-  /*opacity: 1;*/
   display: block;
 }
 
+@media only screen and (max-width: 1500px){
+  #closeBtn {
+    right: 50px;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  modal-container {
+    height:300px;
+    width: 100%;
+  }
+  iframe {
+    left: 20px;
+  }
+  #closeBtn {
+    top: 10px;
+    right: 10px;
+  }
+}
