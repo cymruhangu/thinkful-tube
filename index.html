@@ -13,9 +13,9 @@
   </header>
 	 <main role="main">
     <h2>Enter Search Term:</h2>   
-    <form action="#" class="js-search-form">
+    <form action="#" class="js-search-form" id="query">
       <label for="query"></label>
-      <input type="text" class="js-query">
+      <input type="text" class="js-query" aria-labelledby="query">
       <button id="btn" type="submit">Search</button>
     </form>
     <section id="modal-container" class="modal"> 
@@ -29,12 +29,13 @@
         </iframe>
       </div>
     </section>
-    <section class="results">
-      <header id="gallery-nav">
+    <section class="results" role="region">
+      <header id="gallery-head">
         <button id="previous" type="button">&#60;&#60; Previous</button> 
         <button id="next" type="button">Next &#62;&#62;</button>
+        <span id="page-display" aria-live="assertive" role="region"></span>
       </header>
-      <div class="gallery">
+      <div class="gallery" hidden role="region">
         	<!-- The Gallery of Thumbnails is inserted here. -->
       </div>
     </section>
