@@ -96,7 +96,7 @@ function getSearchTerm() {
     return `
       <div class="thumbnail">
         <a target="iframe_a" src="${thumb_url}" \
-        href="https://www.youtube.com/embed/${videoId}?enablejsapi=1&version=3&playerapiid=ytplayer" frameborder="0" allowfullscreen"><img src="${thumb_url}" alt="${title}"/><span class="playBtn"><img src=
+        href="https://www.youtube.com/embed/${videoId}?enablejsapi=1&version=3&playerapiid=ytplayer&autoplay=1" frameborder="0" allowfullscreen"><img src="${thumb_url}" alt="${title}"/><span class="playBtn"><img src=
         "http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt="play button"></span></a>
         <figcaption>${title}</figcaption>
       </div>
