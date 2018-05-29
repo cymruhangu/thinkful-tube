@@ -3,8 +3,10 @@
 'use strict';
   const YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search';
   const APIkey = 'AIzaSyCqJXBeMiVGZJzIUVoZYxYcMbyfOEc19AY';
+  const maxResults = 40;
   let firstPage = true;
   let lastPage = false;
+  let pageNum = 1;
   let token = '';
 
 getSearchTerm();
@@ -17,6 +19,7 @@ function getSearchTerm() {
       // clear out the input
       queryTarget.val("");
       let searchTerm = query;
+      pageNum = 1;
       sessionStorage.setItem('searchTerm', query);
       getDataFromApi(token, displayYouTubeSearchData);
     });
@@ -28,9 +31,8 @@ function getSearchTerm() {
       url: YOUTUBE_SEARCH_URL,
       dataType: 'json',
       data: {
-        maxResults: '28',
+        maxResults: `${maxResults}`,
         part: 'snippet',
-
         q: sessionStorage.getItem('searchTerm'),
         key: `${APIkey}`,
         pageToken: token
@@ -55,37 +57,47 @@ function getSearchTerm() {
     sessionStorage.setItem('prevPageToken', prevPg);
     const results = data.items.map((item, index) => renderResult(item.snippet.thumbnails.medium.url, item.id.videoId, item.snippet.title));
     $('.gallery').html(results);
-    // $('.gallery').fadeIn(600);
+    $('.results').prop('hidden',false);
     $(handleThumbNailClicks);
     setState(prevPg, nextPg);
   }
 
   function setState(previous, next){
     if(previous === undefined){ 
-      $('#previous').css('opacity', '0');
-      $('#next').css('opacity', '1');
+      $('#previous').css('display', 'none');
+      $('#next').css('display', 'inline-block');
+      $('#page-display').html('Displaying videos 1-40');
+      $('#page-display').css('hidden' , false);
       firstPage = false;
     }else if(next === undefined){ //last page
       //show only prev button
       console.log('last page!');
-      $('#next').css('opacity', '0');
+      $('#next').css('display', 'none');
       lastPage = true;
     }else {
-      $('#previous').css('opacity', '1');
-      $('#next').css('opacity', '1');
+      $('#previous').css('display', 'inline-block');
+      $('#next').css('opacity', 'inline-block');
     }
     //Remove previously called event handlers
+    setResultNums();
     $('button').off();
     nextButton();
     previousButton();
+  }
+
+  function setResultNums(){
+    let result1 = (pageNum * maxResults) - 39;
+    let result2 = pageNum * maxResults;
+    $('#page-display').html(`Displaying videos ${result1} - ${result2}`);
+    $('#page-display').css('hidden' , false);
   }
 
   function renderResult(thumb_url, videoId, title) {
     return `
       <div class="thumbnail">
         <a target="iframe_a" src="${thumb_url}" \
-        href="https://www.youtube.com/embed/${videoId}?enablejsapi=1&version=3&playerapiid=ytplayer" frameborder="0" allowfullscreen"><img src="${thumb_url}" alt="An"/><span class="playBtn"><img src=
-        "http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt=""></span></a>
+        href="https://www.youtube.com/embed/${videoId}?enablejsapi=1&version=3&playerapiid=ytplayer" frameborder="0" allowfullscreen"><img src="${thumb_url}" alt="${title}"/><span class="playBtn"><img src=
+        "http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt="play button"></span></a>
         <figcaption>${title}</figcaption>
       </div>
     `;
@@ -95,6 +107,7 @@ function getSearchTerm() {
     $('#next').on('click', function(event) {
       event.preventDefault();
       getDataFromApi(sessionStorage.getItem('nextPageToken'), displayYouTubeSearchData);
+      pageNum++;
     });
   };
 
@@ -102,6 +115,7 @@ function getSearchTerm() {
     $('#previous').on('click', function(event){
       event.preventDefault();
       getDataFromApi(sessionStorage.getItem('prevPageToken'),displayYouTubeSearchData);
+      pageNum--;
     });
   }
 
