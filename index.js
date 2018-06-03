@@ -92,14 +92,14 @@ function getSearchTerm() {
     $('#page-display').css('hidden' , false);
   }
 
-  function renderResult(thumb_url, videoId, title) {
+function renderResult(thumb_url, videoId, title) {
     return `
-      <div class="thumbnail">
-        <a target="iframe_a" src="${thumb_url}" \
+        <a class="thumbnail" target="iframe_a" src="${thumb_url}" \
         href="https://www.youtube.com/embed/${videoId}?enablejsapi=1&version=3&playerapiid=ytplayer&autoplay=1" frameborder="0" allowfullscreen"><img src="${thumb_url}" alt="${title}"/><span class="playBtn"><img src=
-        "http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt="play button"></span></a>
+        "http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt="play button"></span>
         <figcaption>${title}</figcaption>
-      </div>
+        </a>
+        <figcaption>${title}</figcaption>
     `;
   }
 
@@ -119,6 +119,7 @@ function getSearchTerm() {
     });
   }
 
+  //This should be refactored into a function
   //Vanilla JS for modal window close
   let modal = document.getElementById('modal-container');
   let closeBtn = document.getElementById('closeBtn');
@@ -134,8 +135,20 @@ function getSearchTerm() {
 
   function handleThumbNailClicks(){
     $('.thumbnail').click(function(event){
-      $('.modal').fadeIn(600);
+      this.blur();
+      $('.modal').fadeIn(600, function(){
+        $(document).keydown(function(event) {
+        // ESCAPE key pressed
+          if (event.keyCode == 27) {
+            console.log("escape key pressed!");
+            closeModal();
+          }
+        });
+      });
       $('.playBtn').fadeOut(100);
+      //put DOM focus into iframe so that youtube control features can be accessed. 
+      document.getElementById('youtube-frame').focus();
+      //Enable escape key to close modal
     });
   }
 })();

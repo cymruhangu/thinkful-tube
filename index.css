@@ -65,24 +65,33 @@ h1, h2 {
   padding-top: 0;
   margin-top: 0;
 }
+/*#modal-content > button {
+  opacity: 1;
+  z-index: 9;
+  position:relative;
+  right:150px;
+  top:50px;
+}*/
 
 .controls {
   float: right;
   padding: 15px;
 }
 
-#closeBtn{
-  color:#ccc;
-  position: absolute;
-  top: 20px;
-  right: 17%;
-  font-size:50px;
-  color:#fff;
+#closeBtn > img{
+  width: 40px;
+  height: 40px;
+  z-index: 9;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 15px;
+  opacity: 0.9;
+  position:relative;
+  right:-90px;
+  top:-755px;
 }
 
 #closeBtn:hover,#closeBtn:focus{
-  color:yellow;
-  font-size: 60px;
   text-decoration: none;
   cursor:pointer;
 }
@@ -90,6 +99,7 @@ h1, h2 {
 #modal-content {
   margin: 0 auto;
 }
+
 #modal-header{
   margin: 30px 30px;
   padding-right: 50px;
@@ -103,6 +113,7 @@ iframe {
 	height: 850px;
 	margin: 0 auto;
 	padding-left: 0;
+  z-index: 2;
 }
 
 form {
@@ -149,6 +160,7 @@ figcaption {
   left: 0; right: 0; top: 0; bottom: 0; margin: auto; /* center */
 }
 
+
 .thumbnail:hover figcaption {
   opacity: 1;
   left: 0;
@@ -156,13 +168,6 @@ figcaption {
 
 .thumbnail:hover .playBtn {
   display: block;
-}
-
-
-@media only screen and (max-width: 1500px){
-  #closeBtn {
-    right: 5%;
-  }
 }
 
 @media only screen and (max-width: 1200px) {
@@ -173,8 +178,7 @@ figcaption {
   iframe {
     left: 20px;
   }
-  #closeBtn {
-    top: 10px;
-    right: 10px;
+  #closeBtn > img{
+    right: 45px;
   }
 }
