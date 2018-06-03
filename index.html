@@ -9,24 +9,22 @@
 </head>
 <body>
   <header role="banner">
-    <h1>YouTube Search App </h1>
+    <h1>YouTube Search App</h1>
   </header>
 	 <main role="main">
-    <h2>Enter Search Term:</h2>   
+    <h2>Enter Search Term:</h2> 
     <form action="#" class="js-search-form" id="query">
       <label for="query"></label>
       <input type="text" class="js-query" aria-labelledby="query">
       <button id="btn" type="submit">Search</button>
     </form>
-    <section id="modal-container" class="modal"> 
+    <section id="modal-container" class="modal" aria-hidden="true"> 
       <!-- Modal window that will contain iFrame with video imbedded -->
       <div id="modal-content" class="modal">
-       <!--  <div id="modal-header"> -->
-          <span id="closeBtn">&times;</span>
-        <!-- </div> -->
-        <iframe id="youtube-frame" class="youtube-video" name="iframe_a" >
+        <iframe id="youtube-frame" class="youtube-video" name="iframe_a">
           <p>Your browser does not support iFrames</p>
         </iframe>
+        <button id="closeBtn" type="button"> <img src="./close-image.png"></button>
       </div>
     </section>
     <section class="results" role="region">
