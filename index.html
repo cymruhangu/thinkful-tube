@@ -18,16 +18,14 @@
       <input type="text" class="js-query" aria-labelledby="query">
       <button id="btn" type="submit">Search</button>
     </form>
-    <section id="modal-container" class="modal" aria-hidden="true"> 
+    <section id="modal-container" class="modal" aria-hidden="false" role="dialog" aria-label="Dialog Window (Leave window by pressing control option shift down arrow and Press escape to close)"> 
       <!-- Modal window that will contain iFrame with video imbedded -->
-      <div id="modal-content" class="modal">
         <iframe id="youtube-frame" class="youtube-video" name="iframe_a">
           <p>Your browser does not support iFrames</p>
         </iframe>
         <button id="closeBtn" type="button"> <img src="./close-image.png"></button>
-      </div>
     </section>
-    <section class="results" role="region">
+    <section class="results" role="region" aria-hidden="false">
       <header id="gallery-head">
         <button id="previous" type="button">&#60;&#60; Previous</button> 
         <button id="next" type="button">Next &#62;&#62;</button>

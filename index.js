@@ -66,7 +66,7 @@ function getSearchTerm() {
     if(previous === undefined){ 
       $('#previous').css('display', 'none');
       $('#next').css('display', 'inline-block');
-      $('#page-display').html('Displaying videos 1-40');
+      $('#page-display').html('Displaying videos 1 to 40');
       $('#page-display').css('hidden' , false);
       firstPage = false;
     }else if(next === undefined){ //last page
@@ -80,7 +80,7 @@ function getSearchTerm() {
     }
     //Remove previously called event handlers
     setResultNums();
-    $('button').off();
+    $('button').off();  
     nextButton();
     previousButton();
   }
@@ -88,14 +88,14 @@ function getSearchTerm() {
   function setResultNums(){
     let result1 = (pageNum * maxResults) - 39;
     let result2 = pageNum * maxResults;
-    $('#page-display').html(`Displaying videos ${result1} - ${result2}`);
+    $('#page-display').html(`Displaying videos ${result1} to ${result2}`);
     $('#page-display').css('hidden' , false);
   }
 
 function renderResult(thumb_url, videoId, title) {
     return `
         <a class="thumbnail" target="iframe_a" src="${thumb_url}" \
-        href="https://www.youtube.com/embed/${videoId}?enablejsapi=1&version=3&playerapiid=ytplayer&autoplay=1" frameborder="0" allowfullscreen"><img src="${thumb_url}" alt="${title}"/><span class="playBtn"><img src=
+        href="https://www.youtube.com/embed/${videoId}?html5=1&enablejsapi=1&version=3&playerapiid=ytplayer&autoplay=1" frameborder="0" allowfullscreen"><img src="${thumb_url}" alt="${title}"/><span class="playBtn"><img src=
         "http://wptf.com/wp-content/uploads/2014/05/play-button.png" width="50" height="50" alt="play button"></span>
         <figcaption>${title}</figcaption>
         </a>
@@ -135,7 +135,6 @@ function renderResult(thumb_url, videoId, title) {
 
   function handleThumbNailClicks(){
     $('.thumbnail').click(function(event){
-      this.blur();
       $('.modal').fadeIn(600, function(){
         $(document).keydown(function(event) {
         // ESCAPE key pressed

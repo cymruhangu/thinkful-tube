@@ -96,15 +96,6 @@ h1, h2 {
   cursor:pointer;
 }
 
-#modal-content {
-  margin: 0 auto;
-}
-
-#modal-header{
-  margin: 30px 30px;
-  padding-right: 50px;
-} 
-
 iframe {
   position: relative;
   top: 50px;
