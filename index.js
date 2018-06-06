@@ -66,7 +66,7 @@ function getSearchTerm() {
     if(previous === undefined){ 
       $('#previous').css('display', 'none');
       $('#next').css('display', 'inline-block');
-      $('#page-display').html('Displaying videos 1-40');
+      $('#page-display').html('Displaying videos 1 to 40');
       $('#page-display').css('hidden' , false);
       firstPage = false;
     }else if(next === undefined){ //last page
@@ -88,7 +88,7 @@ function getSearchTerm() {
   function setResultNums(){
     let result1 = (pageNum * maxResults) - 39;
     let result2 = pageNum * maxResults;
-    $('#page-display').html(`Displaying videos ${result1} - ${result2}`);
+    $('#page-display').html(`Displaying videos ${result1} to ${result2}`);
     $('#page-display').css('hidden' , false);
   }
 
